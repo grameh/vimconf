@@ -6,10 +6,10 @@
     set nocompatible
 """ }}}
 """ Automatically create needed files and folders on first run (*nix only) {{{
-    call system("mkdir -p $HOME/.vim/{swap,undo}")
-    if !filereadable($HOME."/.vimrc.plugins") | call system("touch $HOME/.vimrc.plugins") | endif
-    if !filereadable($HOME."/.vimrc.first") | call system("touch $HOME/.vimrc.first") | endif
-    if !filereadable($HOME."/.vimrc.last") | call system("touch $HOME/.vimrc.last") | endif
+    "call system("mkdir -p $HOME/.vim/{swap,undo}")
+    "if !filereadable($HOME."/.vimrc.plugins") | call system("touch $HOME/.vimrc.plugins") | endif
+    "if !filereadable($HOME."/.vimrc.first") | call system("touch $HOME/.vimrc.first") | endif
+    "if !filereadable($HOME."/.vimrc.last") | call system("touch $HOME/.vimrc.last") | endif
 """ }}}
 """ Vundle plugin manager {{{
     """ Automatically setting up Vundle {{{
@@ -90,6 +90,11 @@
         " Functions, class data etc.
         " REQUIREMENTS: (exuberant)-ctags
         Plugin 'majutsushi/tagbar'
+
+        " Send selected text to tmux 
+        Plugin 'jgdavey/tslime.vim'
+        Plugin 'grameh/vimconf'
+
     """ }}}
     """ Finish Vundle stuff {{{
         call vundle#end()
@@ -657,3 +662,40 @@
         source $HOME/.vimrc.last
     endif
 """ }}}
+
+"pretty fonts on windows
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
+
+" Highlight extra whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+"simpler tab navigation
+nnoremap <S-h> :tabprevious<CR>
+nnoremap <S-l> :tabnext<CR>
+
+"search highlighting
+set hlsearch
+"reset with ctr-l currently highlighted items
+nnoremap <C-L> :nohl<CR><C-L>
+"inserting empty lines abore and below
+nnoremap <S-Enter> O<Esc>
+nnoremap <CR> o<Esc>
+nnoremap <C-C> "+yy
+map <C-X> "_dd
+
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
