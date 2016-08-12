@@ -86,6 +86,7 @@
         " Awesome syntax checker.
         " REQUIREMENTS: See :h syntastic-intro
         Plugin 'scrooloose/syntastic'
+        Plugin 'scrooloose/nerdtree'
 
         " Functions, class data etc.
         " REQUIREMENTS: (exuberant)-ctags
@@ -479,7 +480,7 @@
 
         " Longest common match, e.g. 'b<tab>' => 'bar' for 'barbar', 'barfoo'
         let g:SuperTabLongestEnhanced = 1
-        let g:SuperTabLongestHighlight = 1
+        let g:SuperTabLongestHighlight = 0
     """ }}}
     """ SnipMate {{{
         " Disable '.' => 'self' Python snippet
@@ -699,3 +700,6 @@ map <C-X> "_dd
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
+
+" nerdtree toggle
+map <C-n> :NERDTreeToggle<CR>
