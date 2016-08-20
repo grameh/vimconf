@@ -92,9 +92,8 @@
         " REQUIREMENTS: (exuberant)-ctags
         Plugin 'majutsushi/tagbar'
 
-        " Send selected text to tmux 
+        " Send selected text to tmux
         Plugin 'jgdavey/tslime.vim'
-        Plugin 'grameh/vimconf'
 
     """ }}}
     """ Finish Vundle stuff {{{
