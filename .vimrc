@@ -35,6 +35,10 @@
             if filereadable($HOME."/.vimrc.plugins")
                 source $HOME/.vimrc.plugins
             endif
+            let isgodevenvironment = $ISGODEVENVIRONMENT
+            if isgodevenvironment == "1"
+                source $HOME/.vimrc.go
+            endif
         """ }}}
 
         " <Tab> everything!
