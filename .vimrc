@@ -19,7 +19,7 @@
             echo "Installing Vundle..."
             echo ""
             silent !mkdir -p $HOME/.vim/bundle
-            silent !git clone https://github.com/gmarik/Vundle.vim $HOME/.vim/bundle/Vundle.vim
+            silent !git clone https://github.com/VundleVim/Vundle.vim $HOME/.vim/bundle/Vundle.vim
             let has_vundle=0
         endif
     """ }}}
@@ -29,20 +29,13 @@
         call vundle#begin()                         " init vundle
     """ }}}
     """ Github repos, uncomment to disable a plugin {{{
-        Plugin 'gmarik/Vundle.vim'
+        Plugin 'VundleVim/Vundle.vim'
 
         """ Local plugins (and only plugins in this file!) {{{
             if filereadable($HOME."/.vimrc.plugins")
                 source $HOME/.vimrc.plugins
             endif
-            let isgodevenvironment = $ISGODEVENVIRONMENT
-            if isgodevenvironment == "1"
-                source $HOME/.vimrc.go
-            endif
         """ }}}
-
-        " <Tab> everything!
-        Plugin 'ervandew/supertab'
 
         " Fuzzy finder (files, mru, etc)
         Plugin 'ctrlpvim/ctrlp.vim'
@@ -90,15 +83,22 @@
         " Awesome syntax checker.
         " REQUIREMENTS: See :h syntastic-intro
         Plugin 'scrooloose/syntastic'
-        Plugin 'scrooloose/nerdtree'
 
         " Functions, class data etc.
         " REQUIREMENTS: (exuberant)-ctags
         Plugin 'majutsushi/tagbar'
 
-        " Send selected text to tmux
-        Plugin 'jgdavey/tslime.vim'
+        " Extensive autocomplete plugin with support for plenty of languages
+        Plugin 'Valloric/YouCompleteMe'
 
+        " Better js syntax
+        Plugin 'jelera/vim-javascript-syntax'
+
+        " Nice tree navigation
+        Plugin 'scrooloose/nerdtree'
+
+        " Useful tab utilities (especially tab renaming)
+        Plugin 'gcmt/taboo.vim'
     """ }}}
     """ Finish Vundle stuff {{{
         call vundle#end()
@@ -477,14 +477,6 @@
         let g:netrw_list_hide = '^\.$'
         let g:netrw_liststyle = 3
     """ }}}
-    """ Supertab {{{
-        " Complete based on context (compl-omni, compl-filename, ..)
-        let g:SuperTabDefaultCompletionType = "context"
-
-        " Longest common match, e.g. 'b<tab>' => 'bar' for 'barbar', 'barfoo'
-        let g:SuperTabLongestEnhanced = 1
-        let g:SuperTabLongestHighlight = 0
-    """ }}}
     """ SnipMate {{{
         " Disable '.' => 'self' Python snippet
         " Breaks SuperTab with omnicomplete (e.g. module.<Tab>)
@@ -661,23 +653,6 @@
         augroup END
     """ }}}
 """ }}}
-""" Local ending config, will overwrite anything above. Generally use this. {{{
-    if filereadable($HOME."/.vimrc.last")
-        source $HOME/.vimrc.last
-    endif
-""" }}}
-
-"pretty fonts on windows
-if has("gui_running")
-  if has("gui_gtk2")
-    set guifont=Inconsolata\ 12
-  elseif has("gui_macvim")
-    set guifont=Menlo\ Regular:h14
-  elseif has("gui_win32")
-    set guifont=Consolas:h11:cANSI
-  endif
-endif
-
 " Highlight extra whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -699,10 +674,14 @@ nnoremap <S-Enter> O<Esc>
 nnoremap <CR> o<Esc>
 nnoremap <C-C> "+yy
 map <C-X> "_dd
+map <S-d> :YcmCompleter GoTo<CR>
 
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
-
-" nerdtree toggle
 map <C-n> :NERDTreeToggle<CR>
+""" Local ending config, will overwrite anything above. Generally use this. {{{
+    if filereadable($HOME."/.vimrc.last")
+        source $HOME/.vimrc.last
+    endif
+""" }}}
