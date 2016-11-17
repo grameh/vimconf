@@ -99,6 +99,10 @@
 
         " Useful tab utilities (especially tab renaming)
         Plugin 'gcmt/taboo.vim'
+
+        " Go plugins
+        Plugin 'nsf/gocode', {'rtp': 'vim/'}
+        Plugin 'fatih/vim-go'
     """ }}}
     """ Finish Vundle stuff {{{
         call vundle#end()
