@@ -471,7 +471,7 @@
         let g:syntastic_mode_map = {
             \ 'mode': 'passive',
             \ 'active_filetypes':
-                \ ['c', 'cpp', 'perl', 'python'] }
+                \ ['c', 'cpp', 'perl', 'python', 'javascript', 'go'] }
 
         " Skip check on :wq, :x, :ZZ etc
         let g:syntastic_check_on_wq = 0
@@ -679,13 +679,19 @@ nnoremap <CR> o<Esc>
 nnoremap <C-C> "+yy
 map <C-X> "_dd
 map <S-d> :YcmCompleter GoTo<CR>
+map <S-u> :YcmCompleter GoToReferences<CR>
 
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
 map <C-n> :NERDTreeToggle<CR>
+set mouse=a
+let g:syntastic_javascript_checkers = ['standard']
 """ Local ending config, will overwrite anything above. Generally use this. {{{
     if filereadable($HOME."/.vimrc.last")
         source $HOME/.vimrc.last
     endif
 """ }}}
+"{{
+let $GOPATH=$HOME."/gocode/"
+"}}
