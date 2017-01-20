@@ -100,6 +100,9 @@
         " Useful tab utilities (especially tab renaming)
         Plugin 'gcmt/taboo.vim'
 
+        " Vim grep
+        Plugin 'mileszs/ack.vim'
+
         " Go plugins
         Plugin 'nsf/gocode', {'rtp': 'vim/'}
         Plugin 'fatih/vim-go'
@@ -119,6 +122,9 @@
         source $HOME/.vimrc.first
     endif
 """ }}}
+    if executable('ag')
+      let g:ackprg = 'ag --vimgrep'
+    endif
 """ User interface {{{
     """ Syntax highlighting {{{
         filetype plugin indent on                   " detect file plugin+indent
@@ -666,15 +672,15 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 "simpler tab navigation
-nnoremap <S-h> :tabprevious<CR>
-nnoremap <S-l> :tabnext<CR>
+nnoremap <S-h> :bprevious<CR>
+nnoremap <S-l> :bnext<CR>
 
 "search highlighting
 set hlsearch
 "reset with ctr-l currently highlighted items
 nnoremap <C-L> :nohl<CR><C-L>
 "inserting empty lines abore and below
-nnoremap <S-Enter> O<Esc>
+" nnoremap <S-Enter> O<Esc>
 nnoremap <CR> o<Esc>
 nnoremap <C-C> "+yy
 map <C-X> "_dd
@@ -695,3 +701,4 @@ let g:syntastic_javascript_checkers = ['standard']
 "{{
 let $GOPATH=$HOME."/gocode/"
 "}}
+let g:ycm_python_binary_path = 'python'
