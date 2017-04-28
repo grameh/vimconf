@@ -230,7 +230,7 @@
     """ }}}
 """ }}}
 """ Files {{{
-    set autochdir                                   " always use curr. dir.
+    "set autochdir                                   " always use curr. dir.
     set autoread                                    " refresh if changed
     set confirm                                     " confirm changed files
     set noautowrite                                 " never autowrite
@@ -457,6 +457,8 @@
         " Don't recalculate files on start (slow)
         let g:ctrlp_clear_cache_on_exit = 0
         let g:ctrlp_working_path_mode = 'ra'
+        let g:ctrlp_max_files=0
+        let g:ctrlp_max_depth=40
 
         " Don't split in Startify
         let g:ctrlp_reuse_window = 'startify'
